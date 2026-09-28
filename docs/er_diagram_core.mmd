@@ -1,0 +1,44 @@
+erDiagram
+    ATTENDEES ||--o{ BOOKINGS : "makes"
+    EVENTS    ||--o{ BOOKINGS : "is booked through"
+    EVENTS    ||--|{ SESSIONS : "contains"
+    SPEAKERS  ||--o{ SESSIONS : "presents"
+
+    ATTENDEES {
+        int     attendee_id PK
+        varchar first_name
+        varchar last_name
+        varchar email UK
+        varchar phone
+    }
+    SPEAKERS {
+        int     speaker_id PK
+        varchar first_name
+        varchar last_name
+        varchar topic
+    }
+    EVENTS {
+        int     event_id PK
+        varchar event_name
+        date    event_date
+        varchar location
+        int     total_seats
+        int     available_seats "derived, kept by trigger"
+        decimal ticket_price
+    }
+    BOOKINGS {
+        int     booking_id PK
+        int     attendee_id FK
+        int     event_id FK
+        int     seats_booked
+        decimal amount_paid
+        date    booking_date
+    }
+    SESSIONS {
+        int     session_id PK
+        int     event_id FK
+        int     speaker_id FK
+        varchar session_title
+        time    start_time
+        time    end_time
+    }

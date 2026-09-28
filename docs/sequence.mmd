@@ -1,0 +1,11 @@
+sequenceDiagram
+    actor A as Attendee
+    participant B as book.php
+    participant DB as MariaDB
+    A->>B: POST event_id, seats, csrf_token
+    B->>B: verify CSRF token, session login, validate integers
+    B->>DB: CALL sp_make_booking(:attendee, :event, :seats, @id)
+    DB->>DB: lock event row (FOR UPDATE), check seats
+    DB->>DB: INSERT booking, trigger updates available_seats, COMMIT
+    DB-->>B: @id (or SIGNAL 45000 business error)
+    B-->>A: 302 redirect + "Booking #id confirmed"

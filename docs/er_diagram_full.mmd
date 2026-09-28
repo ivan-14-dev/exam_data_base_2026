@@ -1,0 +1,66 @@
+erDiagram
+    ATTENDEES ||--o| USERS    : "logs in as"
+    ATTENDEES ||--o{ BOOKINGS : "makes"
+    EVENTS    ||--o{ BOOKINGS : "is booked through"
+    BOOKINGS  ||--o{ PAYMENTS : "is settled by"
+    EVENTS    ||--|{ SESSIONS : "contains"
+    SPEAKERS  ||--o{ SESSIONS : "presents"
+
+    ATTENDEES {
+        int     attendee_id PK
+        varchar first_name
+        varchar last_name
+        varchar email UK
+        varchar phone
+    }
+    SPEAKERS {
+        int     speaker_id PK
+        varchar first_name
+        varchar last_name
+        varchar topic
+    }
+    EVENTS {
+        int     event_id PK
+        varchar event_name
+        date    event_date
+        varchar location
+        int     total_seats
+        int     available_seats
+        decimal ticket_price
+    }
+    BOOKINGS {
+        int     booking_id PK
+        int     attendee_id FK
+        int     event_id FK
+        int     seats_booked
+        decimal amount_paid
+        date    booking_date
+    }
+    SESSIONS {
+        int     session_id PK
+        int     event_id FK
+        int     speaker_id FK
+        varchar session_title
+        time    start_time
+        time    end_time
+    }
+    PAYMENTS {
+        int      payment_id PK
+        int      booking_id FK
+        decimal  amount
+        enum     payment_method "MTN_MOMO, ORANGE_MONEY, CARD, CASH"
+        varchar  transaction_ref UK
+        enum     status "PENDING, COMPLETED, FAILED, REFUNDED"
+        datetime paid_at
+    }
+    USERS {
+        int      user_id PK
+        int      attendee_id FK "UK, 1:1"
+        varchar  email UK
+        varchar  password_hash "bcrypt"
+        enum     role "ATTENDEE, ADMIN"
+        tinyint  failed_attempts
+        datetime locked_until
+        datetime created_at
+        datetime last_login_at
+    }

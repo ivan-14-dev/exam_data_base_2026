@@ -1,0 +1,5 @@
+flowchart LR
+    U["Browser<br/>desktop / mobile"] -- "HTTPS (forms + CSRF token)" --> W["PHP 8 web app<br/>webapp/public/*.php"]
+    W -- "PDO native prepared statements<br/>least-privilege user ictu_app" --> D[("MariaDB / MySQL<br/>database ictu_events")]
+    D --- P[["sp_make_booking procedure<br/>+ trigger trg_bookings_after_insert"]]
+    D --- I["Indexes<br/>event_name, booking_date"]

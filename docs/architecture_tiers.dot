@@ -1,0 +1,10 @@
+digraph Arch {
+graph [rankdir=LR, fontname="DejaVu Sans", pad=0.2, nodesep=0.4, ranksep=0.9];
+node [fontname="DejaVu Sans", fontsize=16, shape=box, style="rounded,filled", penwidth=1.5];
+edge [fontname="DejaVu Sans", fontsize=13, dir=both, penwidth=1.4];
+client [fillcolor="#DDEBF7", label=<<B>Client tier</B><BR/>Web browser (desktop / mobile)<BR/>HTML5, CSS3, JavaScript>];
+app [fillcolor="#E2EFDA", label=<<B>Application tier</B><BR/>PHP 8.3 + PDO (pdo_mysql)<BR/>index.php, book.php,<BR/>login.php, register.php, logout.php>];
+db [shape=cylinder, fillcolor="#FCE4D6", label=<<B>Data tier</B><BR/>MariaDB 10.11 - database ictu_events<BR/>7 tables, trigger, stored procedure,<BR/>indexes>];
+client -> app [label="HTTP(S) requests\nHTML forms + CSRF token"];
+app -> db [label="PDO prepared statements\naccount ictu_app (least privilege)"];
+}
