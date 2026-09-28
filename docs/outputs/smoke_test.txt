@@ -1,0 +1,39 @@
+== 1. listing
+<h2>Tech Conference 2025</h2> 97 seats left <h2>Cybersecurity Workshop</h2> 47 seats left <h2>AI in Education Forum</h2> 143 seats left
+== 2. search 'Cyber'
+<h2>Cybersecurity Workshop</h2>
+== 3. SQL injection attempt in search
+No event matches
+== 4. book.php without login -> redirect
+302 http://127.0.0.1:8080/login.php
+== 5. login wrong password
+Invalid e-mail or password
+== 6. login SQL injection in email
+Invalid e-mail or password
+== 7. missing CSRF token
+Invalid or expired form. Please go back and try again.
+== 8. login OK
+302 http://127.0.0.1:8080/book.php
+== 9. book 2 seats for event 1
+302 http://127.0.0.1:8080/book.php
+Booking #7 confirmed
+== 10. book too many seats (11) and invalid event
+Number of seats must be between 1 and 10.
+Event not found
+== 11. register new user
+302 http://127.0.0.1:8080/login.php
+An account already exists for this e-mail.
+== 12. lockout after 5 failures
+Invalid e-mail or password
+Invalid e-mail or password
+Invalid e-mail or password
+Invalid e-mail or password
+Invalid e-mail or password
+account is locked
+== 13. XSS attempt in search is escaped
+value="&lt;script&gt;alert(1)&lt;/script&gt;"
+== 14. security headers / cookie
+Content-Security-Policy: default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; frame-ancestors 'none'; form-action 'self'
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+Set-Cookie: ICTUSESSID=4qcrfgdn49ec42b93rcic4n3fa; path=/; HttpOnly; SameSite=Strict
